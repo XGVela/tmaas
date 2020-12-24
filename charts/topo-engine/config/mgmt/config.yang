@@ -1,0 +1,60 @@
+module xcf-tmaasine-config {
+  namespace "urn:rdns:org:xgvela:tmaas";
+  prefix xgvela-topo-engine;
+
+  import ietf-inet-types { prefix inet; }
+  import tailf-common { prefix tailf; }
+
+  revision "2020-02-11" {
+    description "Initial revision";
+  }
+
+  container config {
+    tailf:callpoint configUpdate {
+      tailf:transaction-hook subtree;
+    }
+
+    leaf completedTimeout {
+      type int32 {
+        range 900..9000;
+      }
+      mandatory true;
+    }
+    leaf runningTimeout {
+      type int32 {
+        range 600..6000;
+      }
+      mandatory true;
+    }
+    leaf pendingTimeout {
+      type int32 {
+	    range 300..3000;
+      }
+      mandatory true;
+    }
+    leaf maxRunningOpPerNf {
+      type int32 {
+	    range 1..100;
+      }
+      mandatory true;
+    }
+    leaf maxPendingOpPerNf {
+      type int32 {
+	    range 1..100;
+      }
+      mandatory true;
+    }
+    leaf logLevel {
+      type enumeration {
+        enum TRACE;
+        enum FATAL;
+        enum ERROR;
+        enum WARN;
+        enum INFO;
+        enum DEBUG;
+        enum ALL;
+      }
+      mandatory true;
+    }
+  }
+}

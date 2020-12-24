@@ -1,0 +1,15 @@
+{{- if .Values.global.xgvela.enableXGVelaScaling -}}
+{{- $cnfHdr := (dict "" "") -}}
+{{- include "cnfTplHeader_2_9" (dict "cnfHdr" $cnfHdr "dot" . ) -}}
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+{{- include "cnfTplMetadata_2_9" (dict "setOffset" "0" "cnfHdr" $cnfHdr "metadata" .Values.componentSpec.deployment.pod_metaspec) }}
+spec:
+  maxReplicas: {{ .Values.scaling.max_replicas }}
+  minReplicas: {{ .Values.scaling.min_replicas }}
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: topo-engine
+  targetCPUUtilizationPercentage: {{ .Values.scaling.target_cpu_percentage }}
+{{- end -}}
