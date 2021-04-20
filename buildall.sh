@@ -62,8 +62,8 @@ docker save $MICROSERVICE_NAME:$MICROSERVICE_VERSION | gzip > $ARTIFACTS_PATH/im
 
 echo -e "\e[1;32;40m[TMAAS-BUILD] Upating tmaas chart \e[0m"
 cp -r ./charts/tmaas $ARTIFACTS_PATH/charts/.
-sed -i "s/topo_eng_tag/$1/" $ARTIFACTS_PATH/charts/tmaas/values.yaml
-#sed -i "s/cim_tag/$4/" $ARTIFACTS_PATH/charts/tmaas/values.yaml
+sed -i -e "s/topo_eng_tag/$1/" $ARTIFACTS_PATH/charts/tmaas/values.yaml
+#sed -i -e "s/cim_tag/$4/" $ARTIFACTS_PATH/charts/tmaas/values.yaml
 md5sum $ARTIFACTS_PATH/images/*
 
 echo -e "\e[1;32;40m[TMAAS-BUILD] Deleting intermediate and microservice images \e[0m"
