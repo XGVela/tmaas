@@ -55,7 +55,7 @@ nf:
 
 ###########################################
 
-serviceAccount: topo-engine-account
+serviceAccount: tmaas-account
 hub: 10.1.1.1:5000
 
 tmaas:
@@ -78,14 +78,14 @@ componentSpec:
 
     pod_metaspec:
       labels:
-        app: topo-engine
+        app: tmaas
       annotations:
         xgvela.com/me: '{"locationName":"bangalore-1","swVersion":"v1.0","managedBy":{"mns.address.primary":"IP=mns@primary","mns.address.secondary":"IP=mns@secondary"}}'
         prometheus.io/scrape: "true"
         prometheus.io/path: /metrics
 
     topo_engine:
-      image: topo-engine
+      image: tmaas
       tag: topo_eng_tag
       operations:
         running_operation_nf: "20"

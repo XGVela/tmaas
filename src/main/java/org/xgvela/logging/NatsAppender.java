@@ -38,7 +38,7 @@ import io.nats.client.Connection;
 public class NatsAppender extends AbstractAppender {
 
 	public static String K8sContainer = String.valueOf(System.getenv("K8S_CONTAINER_ID"));
-	public static String TopoEngine = String.valueOf("topo-engine");
+	public static String TopoEngine = String.valueOf("tmaas");
 
 	private NatsAppender(String name, Filter filter, Layout<? extends Serializable> layout, boolean ignoreExceptions) {
 		super(name, filter, layout, ignoreExceptions);

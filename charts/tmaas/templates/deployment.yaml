@@ -45,7 +45,7 @@ spec:
            value: {{ .Values.global.xgvela.kafka_svc_fqdn | default .Values.kafka_svc_fqdn | quote }}
         command: [ "/bin/bash", "-c", "svc-discovery.sh \"EVENT TMAAS\" " ]
       containers:
-      - name: topo-engine
+      - name: tmaas
         {{- if and (.Values.global) (.Values.global.hub) }}
         image: {{ .Values.global.hub }}/{{ .Values.componentSpec.deployment.topo_engine.image }}:{{ .Values.componentSpec.deployment.topo_engine.tag }}
         {{- else }}
@@ -101,7 +101,7 @@ spec:
             memory: {{ .Values.componentSpec.deployment.topo_engine.resource.request_memory }}
         volumeMounts:
         - mountPath: /config
-          name: topo-engine-mgmt-cfg
+          name: tmaas-mgmt-cfg
       - name: cim
        {{- if and (.Values.global) (.Values.global.hub) }}
         image: {{ .Values.global.hub }}/{{ .Values.componentSpec.deployment.cim.image }}:{{ .Values.componentSpec.deployment.cim.tag }}
@@ -182,4 +182,4 @@ spec:
           - key: config.json
             path: config.json
           name: {{ $cnfHdr.nfVariables.svcname }}-mgmt-cfg
-        name: topo-engine-mgmt-cfg
+        name: tmaas-mgmt-cfg

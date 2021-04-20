@@ -1,6 +1,6 @@
 module xcf-tmaasine-config {
   namespace "urn:rdns:org:xgvela:tmaas";
-  prefix xgvela-topo-engine;
+  prefix xgvela-tmaas;
 
   import ietf-inet-types { prefix inet; }
   import tailf-common { prefix tailf; }

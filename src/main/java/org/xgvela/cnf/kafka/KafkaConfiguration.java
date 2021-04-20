@@ -34,7 +34,7 @@ import java.util.Map;
 public class KafkaConfiguration {
 
     private static String bootstrapServers = String.valueOf(System.getenv("KAFKA_SVC_FQDN"));
-    private static final String groupId = "topo-engine";
+    private static final String groupId = "tmaas";
 
     @Autowired
     RebalanceListener consumerRebalanceListener;

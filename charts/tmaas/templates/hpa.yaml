@@ -24,6 +24,6 @@ spec:
   scaleTargetRef:
     apiVersion: extensions/v1beta1
     kind: Deployment
-    name: topo-engine
+    name: tmaas
   targetCPUUtilizationPercentage: {{ .Values.scaling.target_cpu_percentage }}
 {{- end -}}

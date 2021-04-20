@@ -45,7 +45,7 @@ public class Config {
 		// unknown fields will not cause failure
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-		LOG.info("Initializing topo-engine configuration...");
+		LOG.info("Initializing tmaas configuration...");
 		try {
 			node = mapper.readTree(new File("/config/config.json"));
 			updateProperties();
@@ -63,7 +63,7 @@ public class Config {
 	 */
 	public static boolean applyPatch(JsonNode patch) {
 		boolean status = true;
-		LOG.info("Updating topo-engine configuration, applying patch: \n" + patch.toPrettyString()
+		LOG.info("Updating tmaas configuration, applying patch: \n" + patch.toPrettyString()
 				+ "\n<== configuration ==> \n" + node.toPrettyString());
 		try {
 			node = JsonPatch.apply(patch, node);
