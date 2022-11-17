@@ -39,8 +39,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ConstructTree {
 
     private static final Logger LOG = LogManager.getLogger(ConstructTree.class);
-    public static final CountDownLatch registrationLatch = new CountDownLatch(1);
-    //public static final CountDownLatch nodeActiveLatch = new CountDownLatch(1);
     public static final CountDownLatch kafkaListenerLatch = new CountDownLatch(1);
     public static final String TOPO_ENGINE_LEADER_ELECTION = "/topo_engine/election";
 
@@ -62,10 +60,6 @@ public class ConstructTree {
 
     @PostConstruct
     public void init() throws Exception {
-
-        // await XGVela registration
-        registrationLatch.await();
-
 
         new Thread(() -> {
             try {
