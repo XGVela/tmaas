@@ -17,7 +17,6 @@ package org.xgvela.cnf.config;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.xgvela.cnf.util.NatsUtil;
 import io.fabric8.zjsonpatch.JsonPatch;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -83,7 +82,6 @@ public class Config {
 	 */
 	public static void publishResponse(JsonNode response, boolean status) {
 		LOG.debug("Config update response for CIM:  " + response.toPrettyString());
-		NatsUtil.getConnection().publish("CONFIG", response.toString().getBytes());
 	}
 
 	/**
