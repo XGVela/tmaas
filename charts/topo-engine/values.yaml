@@ -13,8 +13,48 @@
 # limitations under the License.
 
 ######## CNF TEMPLATE DEFINITIONS ###########
+
+global:
+  dnPrefix: "mvnr"
+  xgvela:
+    use_release_ns: false
+    create_ns: true
+    infra_deploy: true
+    infraNodeSelector:
+      enabled: true
+      labelKey: infra
+      labelValue: true
+    mgmtNodeSelector:
+      enabled: true
+      labelKey: mgmt
+      labelValue: true
+    kafka_svc_fqdn: "oam-kafka.oam-system:9092"
+    etcd_svc_fqdn: "192.168.0.8:2379"
+    logging_svc_url: "fb-service.xgvela-paas.svc.cluster.local:5175"
+    logging_svc_tcp_port: "5170"
+    k8s_svc_fqdn: "kubernetes.default.svc.cluster.local"
+    zk_svc_fqdn: "oam-zookeeper.oam-system:2181"
+    storage_engine: "elasticsearch"
+    enable_retrx : "false"
+    log_format: "json"
+    limaasEnabled: false
+    enableXGVelaScaling: false
+    storage:
+      storageClass: "openebs-standalone"
+      isProviderXGVela: false
+      isLVPenabled: false
+      xgvelaLocalStorageHostPathPrefix: "/data"
+      xgvelaLocalStoragePVJobImage: "xgvela-svc-init"
+      xgvelaLocalStoragePVJobTag: "v0.3.4"
+      hostlocalVolumeSelector: []
+    fluentd:
+      enabled: false
+      output:
+        brokers: <output_kafka_url>:<port> # output kafka url
+        topic: logs  
+
 nf:
-  version: "topo_eng_tag"
+  version: "v0.1-xgvela"
   vendorId: "mvnr"
   xgvelaId: "xgvela1" #do not edit
   nfClass: "mgmt"
@@ -62,7 +102,7 @@ tmaas:
   init_container:
     image:
       repository: xgvela-svc-init
-      tag: v0.3.4
+      tag: 1.0
 
 componentSpec:
   service_fend:
@@ -85,8 +125,8 @@ componentSpec:
         prometheus.io/path: /metrics
 
     topo_engine:
-      image: topo-engine
-      tag: topo_eng_tag
+      image: tmaas
+      tag: 1.0
       operations:
         running_operation_nf: "20"
         pending_operation_nf: "20"
@@ -99,25 +139,7 @@ componentSpec:
         request_memory: 300Mi
         request_cpu: 200m
 
-    cim:
-      image: cim
-      tag: v1.11
-      resource:
-        limit_memory: 200Mi
-        limit_cpu: 100m
-        request_memory: 100Mi
-        request_cpu: 50m
-      mount:
-        type: Directory
-        container_path: /opt/logs
-        host_path: /data/logs
-
 scaling:
   max_replicas: 2
   min_replicas: 1
   target_cpu_percentage: 70
-
-etcd_svc_fqdn: "etcd.xgvela-xgvela1-infra-xgvela-xgvela1.svc.cluster.local:2379"
-kafka_svc_fqdn: "kafka-svc.xgvela-xgvela1-infra-xgvela-xgvela1.svc.cluster.local:9092"
-k8s_svc_fqdn: "kubernetes.default.svc.cluster.local"
-zk_svc_fqdn: "zk-0.zk.xgvela-xgvela1-infra-xgvela-xgvela1.svc.cluster.local:2181,zk-1.zk.xgvela-xgvela1-infra-xgvela-xgvela1.svc.cluster.local:2181,zk-2.zk.xgvela-xgvela1-infra-xgvela-xgvela1.svc.cluster.local:2181"
